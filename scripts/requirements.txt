@@ -1,0 +1,5 @@
+# Web scraping
+playwright==1.41.0
+
+# Async support
+nest-asyncio==1.6.0

@@ -1,0 +1,24 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Установка системных зависимостей
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Копирование requirements
+COPY vector_db/requirements.txt .
+
+# Установка Python зависимостей
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копирование скриптов
+COPY vector_db/ .
+
+# Создание директории для данных
+RUN mkdir -p /app/data
+
+# Команда по умолчанию - ждать
+CMD ["python", "create_vector_db.py"]
