@@ -2,23 +2,23 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Установка системных зависимостей
+# Встановлюємо системні залежності
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Копирование requirements
+# Копіюємо requirements
 COPY vector_db/requirements.txt .
-
-# Установка Python зависимостей
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копирование скриптов
+# Копіюємо скрипти
 COPY vector_db/ .
+COPY scripts/abb_bank_hierarchical_data.json /app/data/
 
-# Создание директории для данных
+# Створюємо директорію для даних
 RUN mkdir -p /app/data
 
-# Команда по умолчанию - ждать
-CMD ["python", "create_vector_db.py"]
+# Встановлюємо entrypoint
+ENTRYPOINT ["python", "create_vector_db.py"]

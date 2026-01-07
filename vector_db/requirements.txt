@@ -1,9 +1,7 @@
-# Vector database
-pymilvus==2.4.0
-
-# Embeddings 
-transformers==4.36.0
-torch==2.1.2
-
-# Utilities
-sentencepiece==0.1.99
+pymilvus[model]==2.4.0
+numpy<2.0.0
+marshmallow==3.19.0
+environs==9.5.0
+transformers
+torch --index-url https://download.pytorch.org/whl/cpu
+sentence-transformers

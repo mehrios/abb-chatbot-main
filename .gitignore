@@ -1,1 +1,7 @@
 .env.env
+
+volumes
+
+abb-chatbot-main/vector_db/abb_bank_hierarchical_data.py
+
+abb-chatbot-main/scripts/abb_bank_hierarchical_data.json

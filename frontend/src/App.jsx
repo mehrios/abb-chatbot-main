@@ -276,7 +276,7 @@ const ChatScreen = ({ user, language, onLogout, onNavigate }) => {
             language: language
           })
         });
-
+    
         setMessages([{
           text: t.greeting,
           sender: 'bot',
@@ -286,9 +286,9 @@ const ChatScreen = ({ user, language, onLogout, onNavigate }) => {
         console.error('Chat init error:', err);
       }
     };
-
+    
     initChat();
-  }, []);
+  }, [chatId, user.id, language, t.greeting]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -643,35 +643,23 @@ const DashboardScreen = ({ user, language, onNavigate }) => {
 
   useEffect(() => {
     loadDashboardData();
-  }, []);
+  }, [loadDashboardData]);
 
-  const buildFilterBody = () => {
+  const buildFilterBody = useCallback(() => {
     const filterBody = {};
-    
-    if (filters.start_date) {
-      filterBody.start_date = filters.start_date;
-    }
-    if (filters.end_date) {
-      filterBody.end_date = filters.end_date;
-    }
-    if (filters.username) {
-      filterBody.username = filters.username;
-    }
-    if (filters.min_rating) {
-      filterBody.min_rating = parseInt(filters.min_rating);
-    }
-    if (filters.max_rating) {
-      filterBody.max_rating = parseInt(filters.max_rating);
-    }
-    
+    if (filters.start_date) filterBody.start_date = filters.start_date;
+    if (filters.end_date) filterBody.end_date = filters.end_date;
+    if (filters.username) filterBody.username = filters.username;
+    if (filters.min_rating) filterBody.min_rating = parseInt(filters.min_rating);
+    if (filters.max_rating) filterBody.max_rating = parseInt(filters.max_rating);
     return filterBody;
-  };
+  }, [filters]);
 
-  const loadDashboardData = async () => {
+  const loadDashboardData = useCallback(async () => {
     setLoading(true);
     try {
       const filterBody = buildFilterBody();
-
+  
       // Cost per day
       const costRes = await fetch(`${API_BASE_URL}/analytics/cost/per-day`, {
         method: 'POST',
@@ -779,7 +767,7 @@ const DashboardScreen = ({ user, language, onNavigate }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [buildFilterBody]);
 
   const handleFilterChange = (field, value) => {
     setFilters(prev => ({
