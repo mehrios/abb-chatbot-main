@@ -4,7 +4,7 @@ models:
     temperature: 0.1
     
   gpt_llm:
-    model_name: "gpt-4o-mini"
+    model_name: "gpt-4.1-mini"
     temperature: 0.1
     top_p: 0.85
     top_k: 5
