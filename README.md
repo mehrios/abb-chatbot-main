@@ -270,7 +270,7 @@ CACHE_SIMILARITY_THRESHOLD = 0.92  # Semantic cache threshold
 CACHE_TTL = 3600                   # 1 hour TTL
 
 # LLM settings
-MODEL = "gpt-4o-mini"
+MODEL = "gpt-4.1-mini"
 TEMPERATURE = 0.3
 MAX_TOKENS = 1000
 ```
